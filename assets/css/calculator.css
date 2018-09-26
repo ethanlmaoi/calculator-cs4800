@@ -1,12 +1,17 @@
 #output {
-	
+	width: 40%;
+	height: 40px;
+	border: 1px solid blue;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 5%;
 }
 
 #calculator_container {
 	text-align: center;
 	margin: 0 auto;
-	margin-top: 10%;
-	width: 50%;
+	margin-top: 2%;
+	width: 75%;
 	height: 50%;
 	border: 1px solid red;
 }
