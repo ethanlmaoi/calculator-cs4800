@@ -1,3 +1,16 @@
-@charset "utf-8";
-/* CSS Document */
+#output {
+	
+}
 
+#calculator_container {
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 10%;
+	width: 50%;
+	height: 50%;
+	border: 1px solid red;
+}
+
+.btnFrm {
+	margin: 2%;
+}
