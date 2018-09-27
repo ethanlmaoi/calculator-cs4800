@@ -48,16 +48,36 @@ function addOutput(arg)
 			currentOutput += "9";
 			break;
 		case "add":
-			currentOutput += " + ";
+			if (!checkValid()) {
+				break;
+			}
+			else {
+				currentOutput += " + ";
+			}
 			break;
 		case "subtract":
-			currentOutput += " - ";
+			if (!checkValid()) {
+				break;
+			}
+			else {
+				currentOutput += " - ";
+			}
 			break;
 		case "multiply":
-			currentOutput += " x ";
+			if (!checkValid()) {
+				break;
+			}
+			else {
+				currentOutput += " x ";
+			}
 			break;
 		case "divide":
-			currentOutput += " / ";
+			if (!checkValid()) {
+				break;
+			}
+			else {
+				currentOutput += " / ";
+			}
 			break;
 	}
 	updateOutput();
@@ -123,6 +143,7 @@ $( "#divide" ).click(function() {
 $( "#equals" ).click(function() {
 	currentOutput = formatOutput();
 	evaluateOutput();
+	removeExtraSpace();
 });
 
 // evaluates output
@@ -293,5 +314,10 @@ function removeExtraSpace() {
 }
 
 function checkValid() {
-	
+	var lastCharPos = currentOutput.length - 2; // account for extra space at the end
+	if (currentOutput.charAt(lastCharPos) === "+" || currentOutput.charAt(lastCharPos) === "-" || currentOutput.charAt(lastCharPos) === "x" || currentOutput.charAt(lastCharPos) === "/")
+	{
+		return false;
+	}
+	return true;
 }
