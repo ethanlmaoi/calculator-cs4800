@@ -3,8 +3,9 @@
 
 
 /* global variables*/
-var holdLeft, holdRight = 0;
+var holdLeft, holdRight, leftNum, rightNum, result = 0;
 var currentOutput = "";
+var operation = "";
 
 /* this function displays the currentOutput (see above) onto the application output heading*/
 function updateOutput()
@@ -134,10 +135,10 @@ function evaluateOutput() {
 		while (yesMultiplyDivide(currentOutput))
 		{
 			// get numbers on left and right side + the operation ('x' or '/')
-			var leftNum = getLeftNum(currentOutput, findMultiplyDivide(currentOutput));
-			var rightNum = getRightNum(currentOutput, findMultiplyDivide(currentOutput));
-			var operation = currentOutput.charAt(findMultiplyDivide(currentOutput));
-			var result = 0;
+			leftNum = getLeftNum(currentOutput, findMultiplyDivide(currentOutput));
+			rightNum = getRightNum(currentOutput, findMultiplyDivide(currentOutput));
+			operation = currentOutput.charAt(findMultiplyDivide(currentOutput));
+			result = 0;
 			
 			// replace the section with the product or quotient
 			if (operation === "x")
@@ -147,6 +148,28 @@ function evaluateOutput() {
 			else if (operation === "/")
 			{
 				result = getQuotient(leftNum, rightNum);
+			}
+			
+			replaceExpression(result.toString(), leftNum.toString(), rightNum.toString(), operation);
+		}
+		
+		// iterate currentOutput until it finds the first '+' or '-' (lower precedence)
+		while (yesAddSubtract(currentOutput))
+		{
+			// get numbers on left and right side + the operation ('+' or '-')
+			leftNum = getLeftNum(currentOutput, findAddSubtract(currentOutput));
+			rightNum = getRightNum(currentOutput, findAddSubtract(currentOutput));
+			operation = currentOutput.charAt(findAddSubtract(currentOutput));
+			result = 0;
+			
+			// replace the section with the sum or difference
+			if (operation === "+")
+			{
+				result = getSum(leftNum, rightNum);
+			}
+			else if (operation === "-")
+			{
+				result = getDifference(leftNum, rightNum);
 			}
 			
 			replaceExpression(result.toString(), leftNum.toString(), rightNum.toString(), operation);
@@ -178,12 +201,37 @@ function yesMultiplyDivide(str) {
 	return false;
 }
 
+function yesAddSubtract(str) {
+	for (var i = 0; i < str.length; i++)
+	{
+		var pointer = str.charAt(i);
+		if (pointer === "+" || pointer === "-")
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 function findMultiplyDivide(str) {
 	var place = 0;
 	for (var i = 0; i < str.length; i++)
 	{
 		var pointer = str.charAt(i);
 		if (pointer === "x" || pointer === "/")
+		{
+            return i;
+		}
+    }
+    return 999; // error
+}
+
+function findAddSubtract(str) {
+	var place = 0;
+	for (var i = 0; i < str.length; i++)
+	{
+		var pointer = str.charAt(i);
+		if (pointer === "+" || pointer === "-")
 		{
             return i;
 		}
@@ -221,6 +269,14 @@ function getQuotient(num1, num2) {
 	return num1 / num2;
 }
 
+function getSum(num1, num2) {
+	return num1 + num2;
+}
+
+function getDifference(num1, num2) {
+	return num1 - num2;
+}
+
 function replaceExpression(newStr, num1, num2, op) {
 	var oldStr = num1 + " " + op + " " + num2;
 	currentOutput = currentOutput.replace(oldStr, newStr);
@@ -236,3 +292,6 @@ function removeExtraSpace() {
 	currentOutput = currentOutput.replace(/  /g, " "); // replaces any double white space with a single white space
 }
 
+function checkValid() {
+	
+}
