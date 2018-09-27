@@ -1,7 +1,9 @@
 # calculator-cs4800
 first assignment for cs4800 (software engineering) class
 
-Tools Used: Adobe Dreamweaver, Bootstrap
+Softwares Used: Cloud9 IDE, Adobe Dreamweaver (frontend design), Heroku (to deploy web app)
+Tools Used: Bootstrap, Node.js, Express.js
+Languages: HTML, CSS, JS, jQuery
 
 Projected Time For Project:
 10 hours
