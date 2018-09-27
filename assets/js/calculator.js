@@ -1,3 +1,7 @@
+/* CS4800 Assignment 1
+   Original Code Writen By: Ethan Liao */
+
+
 /* global variables*/
 var holdLeft, holdRight = 0;
 var currentOutput = "";
@@ -122,24 +126,23 @@ $( "#equals" ).click(function() {
 
 // evaluates output
 function evaluateOutput() {
+	
+	// until there is no more multiplication or division
 	while (!singleNumber(currentOutput)) {
 		
+		// iterate currentOutput until it finds the first 'x' or '/' (higher precedence)
 		while (yesMultiplyDivide(currentOutput))
 		{
-			console.log(currentOutput);
+			// get numbers on left and right side + the operation ('x' or '/')
 			var leftNum = getLeftNum(currentOutput, findMultiplyDivide(currentOutput));
-			console.log(leftNum);
 			var rightNum = getRightNum(currentOutput, findMultiplyDivide(currentOutput));
-			console.log(rightNum);
 			var operation = currentOutput.charAt(findMultiplyDivide(currentOutput));
-			console.log(operation);
 			var result = 0;
-			console.log("2");
-				
+			
+			// replace the section with the product or quotient
 			if (operation === "x")
 			{
 				result = getProduct(leftNum, rightNum);
-				console.log("3");
 			}
 			else if (operation === "/")
 			{
@@ -230,6 +233,6 @@ function formatOutput() {
 }
 
 function removeExtraSpace() {
-	currentOutput = currentOutput.replace(/  /g, " ");
+	currentOutput = currentOutput.replace(/  /g, " "); // replaces any double white space with a single white space
 }
 
