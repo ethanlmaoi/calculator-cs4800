@@ -1,4 +1,5 @@
 /* global variables*/
+var holdLeft, holdRight = 0;
 var currentOutput = "";
 
 /* this function displays the currentOutput (see above) onto the application output heading*/
@@ -115,28 +116,46 @@ $( "#divide" ).click(function() {
 });
 
 $( "#equals" ).click(function() {
-	// evaluate output
+	currentOutput = formatOutput();
+	evaluateOutput();
 });
 
 // evaluates output
 function evaluateOutput() {
-	var newOutput = "";
-	while (singleNumber(currentOutput)) {
+	while (!singleNumber(currentOutput)) {
 		
 		while (yesMultiplyDivide(currentOutput))
 		{
+			console.log(currentOutput);
+			var leftNum = getLeftNum(currentOutput, findMultiplyDivide(currentOutput));
+			console.log(leftNum);
+			var rightNum = getRightNum(currentOutput, findMultiplyDivide(currentOutput));
+			console.log(rightNum);
+			var operation = currentOutput.charAt(findMultiplyDivide(currentOutput));
+			console.log(operation);
+			var result = 0;
+			console.log("2");
+				
+			if (operation === "x")
+			{
+				result = getProduct(leftNum, rightNum);
+				console.log("3");
+			}
+			else if (operation === "/")
+			{
+				result = getQuotient(leftNum, rightNum);
+			}
 			
+			replaceExpression(result.toString(), leftNum.toString(), rightNum.toString(), operation);
 		}
 	}
-	
-	
 }
 
 function singleNumber(str) {
-	for (int i = 0; i < str.length; i++)
+	for (var i = 0; i < str.length; i++)
 	{
 		var pointer = str.charAt(i);
-		if (pointer == " " || pointer == "+" || pointer == "-" || pointer == "x" || pointer == "/")
+		if (pointer === "+" || pointer === "-" || pointer === "x" || pointer === "/")
 		{
 			return false;
 		}
@@ -145,10 +164,10 @@ function singleNumber(str) {
 }
 
 function yesMultiplyDivide(str) {
-	for (int i = 0; i < str.length; i++)
+	for (var i = 0; i < str.length; i++)
 	{
 		var pointer = str.charAt(i);
-		if (pointer == "x" || pointer == "/")
+		if (pointer === "x" || pointer === "/")
 		{
 			return true;
 		}
@@ -158,16 +177,59 @@ function yesMultiplyDivide(str) {
 
 function findMultiplyDivide(str) {
 	var place = 0;
-	for (int i = 0; i < str.length; i++)
+	for (var i = 0; i < str.length; i++)
 	{
 		var pointer = str.charAt(i);
-		if (pointer == "x" || pointer == "/")
+		if (pointer === "x" || pointer === "/")
 		{
-			
+            return i;
 		}
-	}
+    }
+    return 999; // error
 }
 
+function getLeftNum(str, place) {
+    for (var i = 2; i < str.length; i++)
+    {
+        if (str.charAt(place-i) === " ")
+		{
+			holdLeft = place-i;
+			return Number(str.substring(place-i+1, place-1));
+		}
+    }
+}
 
+function getRightNum(str, place) {
+    for (var i = 2; i < str.length; i++)
+    {
+        if (str.charAt(place+i) === " ")
+		{
+			holdRight = place+i;
+			return Number(str.substring(place+2, place+i));
+		}
+    }
+}
 
+function getProduct(num1, num2) {
+	return num1 * num2;
+}
+
+function getQuotient(num1, num2) {
+	return num1 / num2;
+}
+
+function replaceExpression(newStr, num1, num2, op) {
+	var oldStr = num1 + " " + op + " " + num2;
+	currentOutput = currentOutput.replace(oldStr, newStr);
+	removeExtraSpace();
+	updateOutput();
+}
+
+function formatOutput() {
+	return " " + currentOutput + " ";
+}
+
+function removeExtraSpace() {
+	currentOutput = currentOutput.replace(/  /g, " ");
+}
 
