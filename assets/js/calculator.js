@@ -6,6 +6,8 @@
 var holdLeft, holdRight, leftNum, rightNum, result = 0;
 var currentOutput = "";
 var operation = "";
+var notClickedPrev = false;
+var equalsLastInput = false;
 
 /* this function displays the currentOutput (see above) onto the application output heading*/
 function updateOutput()
@@ -18,34 +20,94 @@ function addOutput(arg)
 {
 	switch (arg) {
 		case "zero":
-			currentOutput += "0";
+			if (equalsLastInput) {
+				currentOutput = "0";
+			}
+			else {
+				currentOutput += "0";
+			}
+			equalsLastInput = false;
 			break;	
 		case "one":
-			currentOutput += "1";
+			if (equalsLastInput) {
+				currentOutput = "1";
+			}
+			else {
+				currentOutput += "1";
+			}
+			equalsLastInput = false;
 			break;
 		case "two":
-			currentOutput += "2";
+			if (equalsLastInput) {
+				currentOutput = "2";
+			}
+			else {
+				currentOutput += "2";
+			}
+			equalsLastInput = false;
 			break;
 		case "three":
-			currentOutput += "3";
+			if (equalsLastInput) {
+				currentOutput = "3";
+			}
+			else {
+				currentOutput += "3";
+			}
+			equalsLastInput = false;
 			break;
 		case "four":
-			currentOutput += "4";
+			if (equalsLastInput) {
+				currentOutput = "4";
+			}
+			else {
+				currentOutput += "4";
+			}
+			equalsLastInput = false;
 			break;
 		case "five":
-			currentOutput += "5";
+			if (equalsLastInput) {
+				currentOutput = "5";
+			}
+			else {
+				currentOutput += "5";
+			}
+			equalsLastInput = false;
 			break;
 		case "six":
-			currentOutput += "6";
+			if (equalsLastInput) {
+				currentOutput = "6";
+			}
+			else {
+				currentOutput += "6";
+			}
+			equalsLastInput = false;
 			break;
 		case "seven":
-			currentOutput += "7";
+			if (equalsLastInput) {
+				currentOutput = "7";
+			}
+			else {
+				currentOutput += "7";
+			}
+			equalsLastInput = false;
 			break;
 		case "eight":
-			currentOutput += "8";
+			if (equalsLastInput) {
+				currentOutput = "8";
+			}
+			else {
+				currentOutput += "8";
+			}
+			equalsLastInput = false;
 			break;
 		case "nine":
-			currentOutput += "9";
+			if (equalsLastInput) {
+				currentOutput = "9";
+			}
+			else {
+				currentOutput += "9";
+			}
+			equalsLastInput = false;
 			break;
 		case "add":
 			if (!checkValid()) {
@@ -54,6 +116,7 @@ function addOutput(arg)
 			else {
 				currentOutput += " + ";
 			}
+			equalsLastInput = false;
 			break;
 		case "subtract":
 			if (!checkValid()) {
@@ -62,6 +125,7 @@ function addOutput(arg)
 			else {
 				currentOutput += " - ";
 			}
+			equalsLastInput = false;
 			break;
 		case "multiply":
 			if (!checkValid()) {
@@ -70,6 +134,7 @@ function addOutput(arg)
 			else {
 				currentOutput += " x ";
 			}
+			equalsLastInput = false;
 			break;
 		case "divide":
 			if (!checkValid()) {
@@ -78,6 +143,7 @@ function addOutput(arg)
 			else {
 				currentOutput += " / ";
 			}
+			equalsLastInput = false;
 			break;
 	}
 	updateOutput();
@@ -141,9 +207,14 @@ $( "#divide" ).click(function() {
 });
 
 $( "#equals" ).click(function() {
-	currentOutput = formatOutput();
-	evaluateOutput();
-	removeExtraSpace();
+		equalsLastInput = true;
+		currentOutput = formatOutput();
+		evaluateOutput();
+});
+
+$( "#clear" ).click(function() {
+		currentOutput = "";
+		updateOutput();
 });
 
 // evaluates output
