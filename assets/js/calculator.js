@@ -8,6 +8,7 @@ var currentOutput = "";
 var operation = "";
 var notClickedPrev = false;
 var equalsLastInput = false;
+var MAX_INPUT = 25;
 
 /* this function displays the currentOutput (see above) onto the application output heading*/
 function updateOutput()
@@ -191,19 +192,27 @@ $( "#nine" ).click(function() {
 });
 
 $( "#add" ).click(function() {
-	addOutput("add");
+	if (currentOutput != "") {
+		addOutput("add");
+	}
 });
 
 $( "#subtract" ).click(function() {
-	addOutput("subtract");
+	if (currentOutput != "") {
+		addOutput("subtract");
+	}
 });
 
 $( "#multiply" ).click(function() {
-	addOutput("multiply");
+	if (currentOutput != "") {
+		addOutput("multiply");
+	}
 });
 
 $( "#divide" ).click(function() {
-	addOutput("divide");
+	if (currentOutput != "") {
+		addOutput("divide");
+	}
 });
 
 $( "#equals" ).click(function() {
