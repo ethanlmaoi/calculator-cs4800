@@ -1,14 +1,14 @@
 /* CS4800 Assignment 1
    Original Code Writen By: Ethan Liao */
 
+/* Constraints */
+var MAX_INPUT = 25; // added max input to prevent numbers from getting too big for calculator
 
 /* global variables*/
 var holdLeft, holdRight, leftNum, rightNum, result = 0;
 var currentOutput = "";
 var operation = "";
-var notClickedPrev = false;
 var equalsLastInput = false;
-var MAX_INPUT = 25;
 
 /* this function displays the currentOutput (see above) onto the application output heading*/
 function updateOutput()
@@ -110,6 +110,16 @@ function addOutput(arg)
 			}
 			equalsLastInput = false;
 			break;
+		case "point":
+			if (equalsLastInput) {
+				currentOutput = ".";
+			}
+			else {
+				if (!checkValidDecimal()) { break; }
+				else { currentOutput += "."; }
+			}
+			equalsLastInput = false;
+			break;
 		case "add":
 			if (!checkValid()) {
 				break;
@@ -152,66 +162,100 @@ function addOutput(arg)
 
 // click functions
 $( "#zero" ).click(function() {
-	addOutput("zero");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("zero");
+	}
 });
 
 $( "#one" ).click(function() {
-	addOutput("one");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("one");
+	}
 });
 
 $( "#two" ).click(function() {
-	addOutput("two");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("two");
+	}
 });
 
 $( "#three" ).click(function() {
-	addOutput("three");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("three");
+	}
 });
 
 $( "#four" ).click(function() {
-	addOutput("four");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("four");
+	}
 });
 
 $( "#five" ).click(function() {
-	addOutput("five");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("five");
+	}
 });
 
 $( "#six" ).click(function() {
-	addOutput("six");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("six");
+	}
 });
 
 $( "#seven" ).click(function() {
-	addOutput("seven");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("seven");
+	}
 });
 
 $( "#eight" ).click(function() {
-	addOutput("eight");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("eight");
+	}
 });
 
 $( "#nine" ).click(function() {
-	addOutput("nine");
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("nine");
+	}
 });
 
 $( "#add" ).click(function() {
 	if (currentOutput != "") {
-		addOutput("add");
+		if (currentOutput.length < MAX_INPUT) {
+			addOutput("add");
+		}
+	}
+});
+
+$( "#point" ).click(function() {
+	if (currentOutput.length < MAX_INPUT) {
+		addOutput("point");
 	}
 });
 
 $( "#subtract" ).click(function() {
 	if (currentOutput != "") {
-		addOutput("subtract");
+		if (currentOutput.length < MAX_INPUT) {
+			addOutput("subtract");
+		}
 	}
 });
 
 $( "#multiply" ).click(function() {
 	if (currentOutput != "") {
-		addOutput("multiply");
+		if (currentOutput.length < MAX_INPUT) {
+			addOutput("multiply");
+		}
 	}
 });
 
 $( "#divide" ).click(function() {
 	if (currentOutput != "") {
-		addOutput("divide");
+		if (currentOutput.length < MAX_INPUT) {
+			addOutput("divide");
+		}	
 	}
 });
 
@@ -226,7 +270,7 @@ $( "#clear" ).click(function() {
 		updateOutput();
 });
 
-// evaluates output
+// evaluates the currentOutput of the calculator
 function evaluateOutput() {
 	
 	// until there is no more multiplication or division
@@ -396,6 +440,15 @@ function removeExtraSpace() {
 function checkValid() {
 	var lastCharPos = currentOutput.length - 2; // account for extra space at the end
 	if (currentOutput.charAt(lastCharPos) === "+" || currentOutput.charAt(lastCharPos) === "-" || currentOutput.charAt(lastCharPos) === "x" || currentOutput.charAt(lastCharPos) === "/")
+	{
+		return false;
+	}
+	return true;
+}
+
+function checkValidDecimal() {
+	var lastCharPos = currentOutput.length - 2; // account for extra space at the end
+	if (currentOutput.charAt(lastCharPos) === "." || currentOutput.charAt(lastCharPos+1) === ".")
 	{
 		return false;
 	}
