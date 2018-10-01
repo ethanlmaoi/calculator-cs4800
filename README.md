@@ -6,7 +6,7 @@ Tools Used: Bootstrap, Node.js, Express.js
 Languages: HTML, CSS, JS, jQuery
 
 Projected Time For Project:
-10 hours
+7 hours
 
 • Build a calculator that can Add, Subtract, Multiply & Divide numbers – 
 The calculator needs to have a user interface – 
@@ -24,12 +24,3 @@ Between
  • Testing
 
  • Record number of bugs/defects found during testing • Compare your total time spent with your initial estimate
-
-
-TIME LOG
-=========
-
-9/26/18 3:11 - 3:45
-Created repository and HTML, CSS, JS files
-
-
